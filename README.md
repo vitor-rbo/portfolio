@@ -10,6 +10,10 @@ Personal portfolio website: a short intro, skills, a featured project and contac
 - Light and dark mode, following the system setting with a manual toggle
 - English and Portuguese translations, with the choice remembered between visits
 - Custom Material UI theme, typography and logo, rather than the default look
+- Animated WebGL gradient behind the hero, with separate colours for light and dark mode
+  - Loaded lazily after the first paint, so it never delays the page
+  - Fades in smoothly, and is removed when the hero is a screen or more out of view, to save GPU and battery
+  - Falls back to a static dotted background if reduced motion is on, WebGL is unavailable, or the gradient fails
 - Responsive down to phone widths, and respects the reduced-motion setting
 
 ## Tech stack
@@ -17,6 +21,7 @@ Personal portfolio website: a short intro, skills, a featured project and contac
 - [React](https://react.dev/) and [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vite.dev/) for development and builds
 - [Material UI](https://mui.com/) for components and theming
+- [ShaderGradient](https://shadergradient.co/) (`@shadergradient/react`), with [React Three Fiber](https://r3f.docs.pmnd.rs/) and [three.js](https://threejs.org/) for the hero background. `three` is pinned to 0.169.0, the version ShaderGradient was built against.
 - [Oxlint](https://oxc.rs/docs/guide/usage/linter) for linting
 - Hosted on [Vercel](https://vercel.com/)
 
@@ -30,6 +35,8 @@ npm run dev
 ```
 
 The dev server starts at http://localhost:5173 and reloads when files change.
+
+The development server and the production build bundle dependencies differently. After changing anything to do with the hero gradient, also check the production version with `npm run build` followed by `npm run preview`.
 
 ### Scripts
 
@@ -46,6 +53,9 @@ The dev server starts at http://localhost:5173 and reloads when files change.
 public/            Static files served as-is: project screenshot, favicon
 src/
   components/      One file per page section, plus the nav, logo and shared pieces
+                   Hero gradient: ShaderBackground (the gradient and its colours),
+                   GradientLayers (fade-in and readability overlay),
+                   useGradientBackdrop (when to load, show and remove it), SilentBoundary (failure fallback)
   content.ts       All page text (English and Portuguese), plus links and project data
   i18n.tsx         Language provider: stores the language choice, updates title and lang
   theme.ts         Material UI theme: colours for both modes, fonts, component defaults
@@ -62,6 +72,7 @@ Almost everything on the page lives in `src/content.ts`:
 - **Project details:** `project` (links, tags, image) and the `projects` section of each language.
 - **Screenshot:** replace the file in `public/`, keeping the same filename.
 - **Colours and fonts:** `src/theme.ts`.
+- **Hero gradient colours, speed and shape:** `src/components/ShaderBackground.tsx`. Colours are set per mode in `palettes`.
 
 ## Deployment
 
