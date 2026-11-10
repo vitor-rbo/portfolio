@@ -94,7 +94,16 @@ export default function Nav() {
       }}
     >
       <Toolbar sx={{ width: '100%', maxWidth: 1120, mx: 'auto', px: { xs: 2, sm: 4 } }} disableGutters>
-        <Link href="#top" sx={{ display: 'flex', mr: 'auto' }} aria-label={t.nav.backToTop}>
+        <Link
+          href="/"
+          onClick={(e) => {
+            e.preventDefault()
+            window.scrollTo({ top: 0 }) // follows the page's smooth-scroll / reduced-motion setting
+            history.replaceState(null, '', window.location.pathname)
+          }}
+          sx={{ display: 'flex', mr: 'auto' }}
+          aria-label={t.nav.backToTop}
+        >
           <Logo />
         </Link>
 

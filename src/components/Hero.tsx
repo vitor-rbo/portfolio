@@ -10,7 +10,6 @@ export default function Hero() {
   const { t } = useI18n()
   return (
     <Box
-      id="top"
       component="header"
       sx={{
         position: 'relative',
