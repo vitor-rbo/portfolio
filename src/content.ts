@@ -8,13 +8,34 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/vitor-oliveira-621592389',
 }
 
-export const project = {
-  name: 'Hireflow',
-  tags: ['React', 'TypeScript', 'Node.js', 'Express', 'Supabase', 'Vercel'],
-  live: 'https://hireflow-smoky.vercel.app/',
-  repo: 'https://github.com/vitor-rbo/hireflow',
-  image: '/hireflow.png',
-}
+export type ProjectId = 'hireflow' | 'padel'
+
+/** Language-independent project data. Text for each project lives in `copy.projects.items`. */
+export const projects: {
+  id: ProjectId
+  name: string
+  tags: string[]
+  live: string
+  repo: string
+  image: string
+}[] = [
+  {
+    id: 'hireflow',
+    name: 'Hireflow',
+    tags: ['React', 'TypeScript', 'Node.js', 'Express', 'Supabase', 'Vercel'],
+    live: 'https://hireflow-smoky.vercel.app/',
+    repo: 'https://github.com/vitor-rbo/hireflow',
+    image: '/hireflow.png',
+  },
+  {
+    id: 'padel',
+    name: 'Padel Scorer',
+    tags: ['React', 'TypeScript', 'Vite', 'PWA', 'Vitest', 'Vercel'],
+    live: 'https://padelscorer.vercel.app/',
+    repo: 'https://github.com/vitor-rbo/padel-scorer',
+    image: '/padel-scorer.jpg',
+  },
+]
 
 const en = {
   htmlLang: 'en',
@@ -68,16 +89,29 @@ const en = {
   projects: {
     index: '03 / Projects',
     title: 'Selected work',
-    kind: 'Personal project',
-    tagline: 'Job application tracker',
-    description: [
-      'A full-stack web app for tracking job applications from first submission to outcome. Each application records the role, company, location and status, and moves through every stage: applied, response received, interview, offer or rejection.',
-      'I designed the data model and the interface around the real workflow of a job search.',
-    ],
     live: 'Live site',
     source: 'Source code',
     screenshotSoon: 'screenshot coming soon',
-    screenshotAlt: 'Hireflow screenshot',
+    items: {
+      hireflow: {
+        kind: 'Personal project',
+        tagline: 'Job application tracker',
+        description: [
+          'A full-stack web app for tracking job applications from first submission to outcome. Each application records the role, company, location and status, and moves through every stage: applied, response received, interview, offer or rejection.',
+          'I designed the data model and the interface around the real workflow of a job search.',
+        ],
+        screenshotAlt: 'Hireflow screenshot',
+      },
+      padel: {
+        kind: 'Personal project · PWA',
+        tagline: 'Padel score tracker',
+        description: [
+          'An installable, offline-first progressive web app for keeping score during a padel match. Big one-handed buttons, undo for mis-taps, configurable rules (sets, tie-breaks, golden point) and a saved match history. Everything runs in the browser, with no account and no backend.',
+          'The scoring rules are plain, fully unit-tested TypeScript, separate from the UI. State is immutable, so undo simply steps back to the previous copy.',
+        ],
+        screenshotAlt: 'Padel Scorer preview',
+      },
+    },
   },
   contact: {
     index: '04 / Contact',
@@ -140,16 +174,29 @@ const pt: Copy = {
   projects: {
     index: '03 / Projetos',
     title: 'Projetos selecionados',
-    kind: 'Projeto pessoal',
-    tagline: 'Rastreador de candidaturas a vagas',
-    description: [
-      'Uma aplicação web full-stack para acompanhar candidaturas a vagas, do envio ao resultado. Cada candidatura registra cargo, empresa, localização e status, e passa por todas as etapas: candidatura enviada, resposta recebida, entrevista, proposta ou recusa.',
-      'Projetei o modelo de dados e a interface em torno do fluxo real de uma busca por emprego.',
-    ],
     live: 'Ver site',
     source: 'Código-fonte',
     screenshotSoon: 'captura de tela em breve',
-    screenshotAlt: 'Captura de tela do Hireflow',
+    items: {
+      hireflow: {
+        kind: 'Projeto pessoal',
+        tagline: 'Rastreador de candidaturas a vagas',
+        description: [
+          'Uma aplicação web full-stack para acompanhar candidaturas a vagas, do envio ao resultado. Cada candidatura registra cargo, empresa, localização e status, e passa por todas as etapas: candidatura enviada, resposta recebida, entrevista, proposta ou recusa.',
+          'Projetei o modelo de dados e a interface em torno do fluxo real de uma busca por emprego.',
+        ],
+        screenshotAlt: 'Captura de tela do Hireflow',
+      },
+      padel: {
+        kind: 'Projeto pessoal · PWA',
+        tagline: 'Marcador de placar de padel',
+        description: [
+          'Um progressive web app instalável e com suporte offline para marcar o placar durante uma partida de padel. Botões grandes para usar com uma mão, desfazer para toques errados, regras configuráveis (sets, tie-breaks, ponto de ouro) e histórico de partidas salvo. Tudo roda no navegador, sem conta e sem backend.',
+          'As regras de pontuação são TypeScript puro, totalmente testado e separado da interface. O estado é imutável, então desfazer é apenas voltar para a cópia anterior.',
+        ],
+        screenshotAlt: 'Prévia do Padel Scorer',
+      },
+    },
   },
   contact: {
     index: '04 / Contato',
